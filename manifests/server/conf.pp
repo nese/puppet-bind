@@ -28,6 +28,9 @@
 #   ID returned for id.server TXT in CHAOS. Default: undef, empty
 #  $version:
 #   Version string override text. Default: none
+#  $statistics_channels:
+#   Array of hashes, where each represents a statistics channel with the values 'ip',
+#   'port' and 'acl' to apply for a channel.
 #  $dump_file:
 #   Dump file for the server. Default: '/var/named/data/cache_dump.db'
 #  $statistics_file:
@@ -67,6 +70,7 @@
 #  bind::server::conf { '/etc/named.conf':
 #    acls => {
 #      'rfc1918' => [ '10/8', '172.16/12', '192.168/16' ],
+#      'stats'   => [ '10/8', 'localhost' ],
 #    },
 #    masters => {
 #      'mymasters' => [ '192.0.2.1', '198.51.100.1' ],
@@ -87,7 +91,16 @@
 #        'algorithm hmac-md5',
 #        'secret "aaabbbcccddd"',
 #      ],
-#    }
+#    },
+#    statistics_channels  => [{
+#        'ip'   => '127.0.0.1',
+#        'port' => '80',
+#        'acl'  => 'stats',
+#    }, {
+#        'ip'   => '10.0.0.1',
+#        'port' => '8081',
+#        'acl'  => 'stats',
+#    }],
 #  }
 #
 define bind::server::conf (
@@ -104,6 +117,7 @@ define bind::server::conf (
   $forward                = undef,
   $server_id              = undef,
   $version                = undef,
+  $statistics_channels    = [],
   $dump_file              = '/var/named/data/cache_dump.db',
   $statistics_file        = '/var/named/data/named_stats.txt',
   $memstatistics_file     = '/var/named/data/named_mem_stats.txt',

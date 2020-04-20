@@ -100,7 +100,13 @@ options {
     /* Path to ISC DLV key */
     bindkeys-file "/etc/named.iscdlv.key";
 };
-
+<% if !@statistics_channels.empty? -%>
+statistics-channels {
+<% @statistics_channels.each do |channel| -%>
+    inet <%= channel['ip'] %> port <%= channel['port'] %> allow {<%= channel['acl'] %>;};
+<% end -%>
+};
+<% end -%>
 logging {
     channel main_log {
         file "/var/log/named/named.log" versions 3 size 5m;
