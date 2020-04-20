@@ -1,0 +1,16 @@
+- repo: https://github.com/chriskuehl/puppet-pre-commit-hooks.git
+  sha: v2.1.0
+  hooks:
+    - id: epp-validate
+    - id: erb-validate
+    - id: puppet-lint
+      args:
+        - --no-80chars-check
+        - --no-documentation-check
+        - --no-puppet_url_without_modules-check
+        - --no-variables_not_enclosed-check
+        - --no-single_quote_string_with_variables-check
+        - --no-autoloader_layout-check
+    - id: puppet-validate
+    - id: r10k-validate
+    - id: ruby-validate

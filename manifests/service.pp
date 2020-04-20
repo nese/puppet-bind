@@ -1,4 +1,6 @@
 # Class: bind::service
+# Class: name
+#
 #
 class bind::service (
   $servicename,
@@ -17,5 +19,4 @@ class bind::service (
     hasstatus => true,
     require   => Class['bind::package'],
   }
-  
 }
